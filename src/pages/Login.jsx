@@ -11,6 +11,7 @@ import Spinner from "../assests/spinner/Spinner";
 import { loginStart, loginSuccess, loginFailure } from "../features/userSlice";
 import { useSelector } from "react-redux";
 import OAuth from "../components/OAuth";
+import { loginUserURL } from "../api/url";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -55,13 +56,10 @@ const Login = () => {
       try {
         dispatch(loginStart());
 
-        const loginUser = await axios.post(
-          `http://localhost:5000/api/user/login`,
-          formData
-        );
-        const response = loginUser.data.user;
-        dispatch(loginSuccess(response));
-        console.log(response);
+        const response = await axios.post(loginUserURL, formData);
+        const user = response.data.user;
+        dispatch(loginSuccess(user));
+        console.log(user);
         
         navigate("/");
       } catch (error) {

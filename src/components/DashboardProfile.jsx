@@ -16,6 +16,7 @@ import {
 import CircleSpinner from "../assests/circleSpinner/CircleSpinner.jsx";
 import Modal from "./Modal.jsx";
 import { NavLink } from "react-router-dom";
+import { updateUserURL, signOutUserURL } from "../api/url.js";
 
 const DashboardProfile = () => {
   const { user } = useSelector((state) => state.userSliceApp);
@@ -124,15 +125,11 @@ const DashboardProfile = () => {
       // UpdateUser profile Api
 
       dispatch(userUpdateStart());
-      const updateUser = await axios.put(
-        `/api/user/updateuser/${user._id}`,
-        formData,
-        {
-          headers: {
-            Authorization: user.token,
-          },
-        }
-      );
+      const updateUser = await axios.put(updateUserURL(user._id), formData, {
+        headers: {
+          Authorization: user.token,
+        },
+      });
 
       if (updateUser.status === 200) {
         dispatch(userUpdateSuccess(updateUser.data.user));
@@ -151,7 +148,7 @@ const DashboardProfile = () => {
 
   const signOutHandle = async () => {
     try {
-      const signOutUser = await axios.post(`/api/user/signoutuser`);
+      const signOutUser = await axios.post(signOutUserURL);
 
       if (signOutUser.data.success === true) {
         dispatch(signOutSuccess());

@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeTheme } from "../features/themeSlice";
 import { signOutSuccess, signOutUserFailure } from "../features/userSlice";
 import axios from "axios";
+import { signOutUserURL } from "../api/url";
 import Search from "./Search";
 
 const Header = () => {
@@ -34,7 +35,7 @@ const Header = () => {
 
   const signOutHandle = async () => {
     try {
-      const signOutUser = await axios.post(`/api/user/signoutuser`);
+      const signOutUser = await axios.post(signOutUserURL);
       if (signOutUser.data.success === true) {
         dispatch(signOutSuccess());
       }

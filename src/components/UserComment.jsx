@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { getUserCommentURL, editCommentURL } from '../api/url'
 import React, { useEffect, useState } from 'react'
 import moment from 'moment';
 import { useSelector } from 'react-redux';
@@ -33,7 +34,7 @@ const UserComment = ({ comments, likeTheComment, updateComment, deleteComment })
         const getUserComments = async () => {
 
             try {
-                const getUser = await axios.get(`/api/user/get-user-comment/${comments.userId}`);
+                const getUser = await axios.get(getUserCommentURL(comments.userId));
                 if (getUser.status === 200) {
 
                     setUser(getUser.data)
@@ -61,7 +62,7 @@ const UserComment = ({ comments, likeTheComment, updateComment, deleteComment })
     const commentSaveHandle = async () => {
         try {
             setLoading(true);
-            const response = await axios.put(`/api/comment/edit-comment/${comments._id}`, { comment: textAreaVal, currentUser }, {
+            const response = await axios.put(editCommentURL(comments._id), { comment: textAreaVal, currentUser }, {
                 headers: {
                     Authorization: currentUser.token
                 }

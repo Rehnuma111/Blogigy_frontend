@@ -13,6 +13,7 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { postBlogURL } from "../api/url";
 
 const CreateBlog = () => {
   const { user } = useSelector((state) => state.userSliceApp);
@@ -110,7 +111,7 @@ const CreateBlog = () => {
     } else {
       try {
         dispatch(addBlogStart());
-        const addBlog = await axios.post(`/api/blog/post-blog`, formData, {
+        const addBlog = await axios.post(postBlogURL, formData, {
           headers: {
             Authorization: user.token,
           },

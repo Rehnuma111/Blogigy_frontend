@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import axios from "axios";
+import { fetchAllBlogsWithLimitURL } from "../api/url";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Spinner from "../assests/spinner/Spinner";
@@ -15,7 +16,7 @@ const Home = () => {
     const getAllBlogs = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`/api/blog/get-all-blogs?limit=9`);
+        const response = await axios.get(fetchAllBlogsWithLimitURL(9));
         if (response.status === 200) {
           setRecentBlogs(response.data.blogs);
         }

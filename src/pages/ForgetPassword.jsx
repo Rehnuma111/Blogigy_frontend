@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { FaLink } from "react-icons/fa6";
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast'
+import { resetPasswordURL } from '../api/url';
 
 const ForgetPassword = () => {
 
@@ -17,7 +18,7 @@ const ForgetPassword = () => {
     const sendResetPasswordLink = async () => {
 
         try {
-            const response = await axios.post(`/api/user/reset-password`, { email: userEmail });
+            const response = await axios.post(resetPasswordURL, { email: userEmail });
 
             if (response.status === 200) {
                 console.log(response.data);

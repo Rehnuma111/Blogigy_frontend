@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getUsersByUserParamURL, fetchAllBlogsWithLimitURL, getAllCommentsWithLimitURL } from '../api/url';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
@@ -26,7 +27,7 @@ const DashBaordComp = () => {
 
         const fetchUser = async () => {
             try {
-                const fetchUserDetails = await axios.get(`/api/user/getusers?user=5`, {
+                const fetchUserDetails = await axios.get(getUsersByUserParamURL(5), {
                     headers: {
                         Authorization: user.token
                     }
@@ -46,7 +47,7 @@ const DashBaordComp = () => {
 
         const fetchBlog = async () => {
             try {
-                const fetchBlogDetails = await axios.get(`/api/blog/get-all-blogs?limit=5`);
+                const fetchBlogDetails = await axios.get(fetchAllBlogsWithLimitURL(5));
 
                 if (fetchBlogDetails.status === 200) {
                     setBlogsData(fetchBlogDetails.data.blogs)
@@ -61,7 +62,7 @@ const DashBaordComp = () => {
 
         const fetchComments = async () => {
             try {
-                const fetchCommentDetails = await axios.get(`/api/comment/get-all-comments?limitComments=5`, {
+                const fetchCommentDetails = await axios.get(getAllCommentsWithLimitURL(5), {
                     headers: {
                         Authorization: user.token
                     }

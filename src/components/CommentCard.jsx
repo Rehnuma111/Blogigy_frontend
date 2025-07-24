@@ -9,6 +9,7 @@ import UserComment from './UserComment';
 import { IoClose } from "react-icons/io5";
 import { ImWarning } from "react-icons/im";
 import Spinner from '../assests/spinner/Spinner';
+import { deleteCommentByIdURL, addCommentURL, getCommentURL, likeTheCommentURL } from '../api/url';
 
 
 
@@ -66,7 +67,7 @@ const CommentCard = ({ blogId }) => {
                 return;
             }
             setLoading(true);
-            const addComment = await axios.post(`/api/comment/add-comment/`,
+            const addComment = await axios.post(addCommentURL,
                 {
                     comment: commentData,
                     blogId: blogId,
@@ -97,7 +98,7 @@ const CommentCard = ({ blogId }) => {
     useEffect(() => {
         const getComment = async () => {
             try {
-                const comment = await axios.get(`/api/comment/get-comment/${blogId}`);
+                const comment = await axios.get(getCommentURL(blogId));
 
                 if (comment.status === 200) {
                     setComments(comment.data)
@@ -120,7 +121,7 @@ const CommentCard = ({ blogId }) => {
                 return;
             }
 
-            const doLike = await axios.put(`/api/comment/like-the-comment/${commentId}`, { user: user._id }, {
+            const doLike = await axios.put(likeTheCommentURL(commentId), { user: user._id }, {
                 headers: {
                     Authorization: user.token
                 },
@@ -176,7 +177,7 @@ const CommentCard = ({ blogId }) => {
     // Comment to delete if the delete if the confirm button is cliekd 
     const okToDeleteComment = async (propsCommentId) => {
         try {
-            const deleteResponse = await axios.delete(`/api/comment/delete-comment/${propsCommentId}`, {
+            const deleteResponse = await axios.delete(deleteCommentByIdURL(propsCommentId), {
                 headers: {
                     Authorization: user.token
                 },

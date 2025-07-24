@@ -5,6 +5,7 @@ import axios from "axios";
 import { loginStart, loginSuccess, loginFailure } from "../features/userSlice";
 import { useDispatch } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
+import { googleUserURL } from "../api/url";
 
 const OAuth = () => {
   const auth = getAuth(app);
@@ -26,7 +27,7 @@ const OAuth = () => {
       };
 
       dispatch(loginStart());
-      const addGoogleUser = await axios.post("/api/user/googleuser", userData);
+      const addGoogleUser = await axios.post(googleUserURL, userData);
       if (addGoogleUser.data.user) {
         dispatch(loginSuccess(addGoogleUser.data.user));
         navigate("/");

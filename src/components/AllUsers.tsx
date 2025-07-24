@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
+import axios from 'axios';
+import { getUsersURL, getUsersByPageURL, deleteUserByIdURL } from '../api/url';
 // Removed flowbite-react Table import
 import Spinner from "../assests/spinner/Spinner";
 import { NavLink } from "react-router-dom";
@@ -10,22 +11,32 @@ import { ImWarning } from "react-icons/im";
 import { IoClose } from "react-icons/io5";
 import toast, { Toaster } from "react-hot-toast";
 
+interface User {
+  _id: string;
+  username: string;
+  email: string;
+  isAdmin: boolean;
+  profilePicture?: string;
+  updatedAt?: string;
+  // Add other fields as needed
+}
+
 const AllUsers = () => {
-  const { user } = useSelector((state) => state.userSliceApp);
-  const { theme } = useSelector((state) => state.themeSliceApp);
-  const [loader, setLoader] = useState(false);
-  const [showMoreButton, setShowMoreButton] = useState(false);
-  const [getAllUsers, setAllUsers] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [userId, setUserId] = useState("");
-  const [startPage, setStartPage] = useState(3);
+  const user = useSelector((state: { userSliceApp: { user: any } }) => state.userSliceApp.user);
+  const theme = useSelector((state: { themeSliceApp: { theme: string } }) => state.themeSliceApp.theme);
+  const [loader, setLoader] = useState<boolean>(false);
+  const [showMoreButton, setShowMoreButton] = useState<boolean>(false);
+  const [getAllUsers, setAllUsers] = useState<User[]>([]);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [userId, setUserId] = useState<string>("");
+  const [startPage, setStartPage] = useState<number>(3);
 
   // Fetch user :
   useEffect(() => {
     if (user.isAdmin) {
       const getUsers = async () => {
         try {
-          const userInfo = await axios.get(`/api/user/getusers`, {
+          const userInfo = await axios.get(getUsersURL, {
             headers: {
               Authorization: user.token,
             },
@@ -57,7 +68,7 @@ const AllUsers = () => {
     try {
       setShowModal(false);
 
-      const userDelete = await axios.delete(`/api/user/deleteuser/${userId}`, {
+      const deleteUserInfo = await axios.delete(deleteUserByIdURL(userId), {
         data: {
           user: user,
         },
@@ -65,7 +76,7 @@ const AllUsers = () => {
           Authorization: user.token,
         },
       });
-      if (userDelete.status === 200) {
+      if (deleteUserInfo.status === 200) {
         setAllUsers((users) => users.filter((users) => users._id !== userId));
         toast.success("User has been deleted successfully");
       }
@@ -80,7 +91,7 @@ const AllUsers = () => {
 
     try {
       const showMoreUser = await axios.get(
-        `/api/user/getusers?page=${startPage}`,
+        getUsersByPageURL(startPage),
         {
           headers: {
             Authorization: user.token,

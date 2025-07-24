@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import BlogPopupModal from "./BlogPopupModal";
 import BlogLoader from "../assests/blogSpinner/BlogLoader";
+import { fetchAllBlogsByUserURL, fetchAllBlogsByPageURL } from '../api/url';
 import { PiSmileySad } from "react-icons/pi";
 
 const AllBlogs = () => {
@@ -24,9 +25,7 @@ const AllBlogs = () => {
             const getBlogs = async () => {
                 setLoader(true);
                 try {
-                    const fetchBlogs = await axios.get(
-                        `/api/blog/get-all-blogs?userId=${user._id}`
-                    );
+                    const fetchBlogs = await axios.get(fetchAllBlogsByUserURL(user._id));
 
                     if (fetchBlogs.status === 200) {
                         setLoader(false);
@@ -58,9 +57,8 @@ const AllBlogs = () => {
     // Show More button api :
     const fetchBlogs = async (page = 2) => {
         try {
-            const response = await axios.get(
-                `/api/blog/get-all-blogs?${user._id}&page=${page}`
-            );
+            const response = await axios.get(`${fetchAllBlogsByPageURL}?userId=${user._id}&page=${page}`);
+
             if (response.status === 200) {
                 setUserBlogs([...response.data.blogs, ...userBlogs]);
                 setPage(page + 1);

@@ -7,6 +7,7 @@ import axios from "axios";
 import { useNavigate, NavLink } from "react-router-dom";
 import Spinner from "../assests/spinner/Spinner";
 import OAuth from "../components/OAuth";
+import { registerUserURL } from "../api/url";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -66,14 +67,11 @@ const Register = () => {
         setLoading(true);
         console.log(formData);
 
-        const registerUser = await axios.post(
-          `http://localhost:5000/api/user/register`,
-          formData
-        );
+        const response = await axios.post(registerUserURL, formData);
         setLoading(false);
-        console.log(registerUser, "122");
+        console.log(response, "122");
 
-        toast.success(registerUser.data.message);
+        toast.success(response.data.message);
         setTimeout(() => {
           navigate("/login");
         }, 2000);

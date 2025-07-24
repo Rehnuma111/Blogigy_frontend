@@ -5,7 +5,8 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { firebaseStorage } from '../firebase/firebaseConfig';
 import FirebaseLoader from '../assests/firebaseLoader/FirebaseLoader';
 import toast, { Toaster } from 'react-hot-toast';
-import axios from 'axios';
+import axios from "axios";
+import { updateBlogURL } from "../api/url";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { updateBlogStart, updateBlogFailure, updateBlogSuccess } from '../features/blogSlice';
@@ -141,7 +142,7 @@ const UpdateBlog = () => {
             // PUT req for updating the blog :
             try {
                 dispatch(updateBlogStart());
-                const updateBlog = await axios.put(`/api/blog/update-blog/${blogId}/${user._id}`, formData, {
+                const updateBlog = await axios.put(updateBlogURL(blogId, user._id), formData, {
                     headers: {
                         Authorization: user.token,
                     },

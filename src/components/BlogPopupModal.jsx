@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { ImWarning } from 'react-icons/im';
 import { IoClose } from 'react-icons/io5';
 import { useSelector } from 'react-redux';
+import { deleteBlogByIdURL, deleteBlogURL } from '../api/url';
 
 
 
@@ -25,7 +26,7 @@ const BlogPopupModal = ({ setBlogModal, blogId, setUserBlogs }) => {
     const deleteBlog = async () => {
 
         try {
-            const deleteBlogInfo = await axios.delete(`/api/blog/delete-blog/${blogId}/${user._id}`, {
+            const deleteBlogInfo = await axios.delete(deleteBlogByIdURL(blogId, user._id), {
                 data: {
                     user: user
                 },

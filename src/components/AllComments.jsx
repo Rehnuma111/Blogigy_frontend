@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
+import axios from 'axios';
+import { getAllCommentsURL, getAllCommentsByPageURL, deleteCommentByIdURL } from '../api/url';
 // Removed flowbite-react Table import
 import Spinner from "../assests/spinner/Spinner";
 import { NavLink } from "react-router-dom";
@@ -32,7 +33,7 @@ const AllComments = () => {
         if (user.isAdmin) {
             const getComments = async () => {
                 try {
-                    const commentInfo = await axios.get(`/api/comment/get-all-comments`, {
+                    const commentInfo = await axios.get(getAllCommentsURL, {
                         headers: {
                             Authorization: user.token,
                         },
@@ -63,7 +64,7 @@ const AllComments = () => {
     // Show more comments 
     const showMoreCommentButton = async () => {
         try {
-            const response = await axios.get(`/api/comment/get-all-comments?page=${startPage + 1}`, {
+            const response = await axios.get(`${getAllCommentsByPageURL}?page=${startPage + 1}`, {
                 headers: {
                     Authorization: user.token
                 },
@@ -94,7 +95,7 @@ const AllComments = () => {
 
     const yesToDeleteComment = async () => {
         try {
-            const response = await axios.delete(`/api/comment/delete-comment/${commentIdToDelete}`, {
+            const deleteCommentInfo = await axios.delete(deleteCommentByIdURL(commentIdToDelete), {
 
                 data: {
                     user: user

@@ -5,6 +5,7 @@ import { deleteUserStart, deleteUserSuccess, deleteUserFailure, } from "../featu
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import toast from "react-hot-toast";
+import { deleteUserByIdURL } from "../api/url";
 
 
 
@@ -27,7 +28,7 @@ const Modal = ({ setShowModal, user }) => {
 
         try {
             dispatch(deleteUserStart());
-            const deleteUserInfo = await axios.delete(`/api/user/deleteuser/${user._id}`, {
+            const deleteUserInfo = await axios.delete(deleteUserByIdURL(user._id), {
 
                 data: {
                     user: user

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { fetchBlogBySlugURL, fetchAllBlogsWithLimitURL } from "../api/url";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -21,9 +22,7 @@ const ShowBlog = () => {
     const fetchBlogSlug = async () => {
       try {
         setLoader(true);
-        const fetchSlug = await axios.get(
-          `/api/blog/get-all-blogs?slug=${blogSlug}`
-        );
+        const fetchSlug = await axios.get(fetchBlogBySlugURL(blogSlug));
         const response = fetchSlug;
         setLoader(false);
 
@@ -42,7 +41,7 @@ const ShowBlog = () => {
   useEffect(() => {
     const getLimitBlogs = async () => {
       try {
-        const getBlogs = await axios.get(`/api/blog/get-all-blogs?limit=3`);
+        const getBlogs = await axios.get(fetchAllBlogsWithLimitURL(3));
 
         if (getBlogs.status === 200) {
           setLimitBlogs(getBlogs.data.blogs);

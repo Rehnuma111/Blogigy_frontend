@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { searchBlogsURL } from '../api/url';
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -58,7 +59,7 @@ const Search = () => {
                 const stringConersionURL = URL.toString();
                 try {
                     setLoading(true);
-                    const response = await axios.get(`/api/blog/get-all-blogs?${stringConersionURL}`);
+                    const response = await axios.get(`${searchBlogsURL}?${stringConersionURL}`);
 
                     if (response.status === 200) {
                         setLoading(false)

@@ -5,6 +5,7 @@ import { CgProfile } from "react-icons/cg";
 import { CiLogout } from "react-icons/ci";
 import { signOutSuccess, signOutUserFailure } from "../features/userSlice";
 import axios from "axios";
+import { signOutUserURL } from "../api/url";
 import { MdPostAdd } from "react-icons/md";
 import { FaUsersCog } from "react-icons/fa";
 import { FaRegCommentDots } from "react-icons/fa6";
@@ -27,7 +28,7 @@ const DashboardSidebar = () => {
   // SignOut User POST API :
   const signOutHandle = async () => {
     try {
-      const signOutUser = await axios.post(`/api/user/signoutuser`);
+      const signOutUser = await axios.post(signOutUserURL);
 
       if (signOutUser.data.success === true) {
         dispatch(signOutSuccess());
