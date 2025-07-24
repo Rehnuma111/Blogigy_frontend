@@ -21,7 +21,8 @@ node_modules
 *.njsproj
 *.sln
 *.sw?
-
+dist/
+.history/
 .env
 .env.example
 .env.local

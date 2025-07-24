@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { Table } from "flowbite-react";
+// Removed flowbite-react Table import
 import Spinner from "../assests/spinner/Spinner";
 import { NavLink } from "react-router-dom";
 import { ImWarning } from "react-icons/im";
@@ -122,110 +122,131 @@ const AllComments = () => {
                     } mx-2 md:mx-0`}
             >
                 {getAllComments.length > 0 && (
-                    <Table hoverable className={`my-5`}>
-                        <Table.Head
-                            className={` text-base   ${theme === "dark"
-                                ? "text-gray-100 bg-gray-700"
-                                : "text-gray-700 bg-gray-300"
-                                } `}
-                        >
-                            <Table.HeadCell
-                                className={`text-center font-semibold  md:text-sm text-xs  ${theme === "dark" && "border-gray-500"
-                                    } `}
+                    <div className="my-5">
+                        <table className="w-full text-sm text-left">
+                            <thead
+                                className={`text-base ${theme === "dark"
+                                    ? "text-gray-100 bg-gray-700"
+                                    : "text-gray-700 bg-gray-300"
+                                    }`}
                             >
-                                Updated on
-                            </Table.HeadCell>
+                                <tr>
+                                    <th
+                                        className={`text-center font-semibold px-5 py-3 md:text-sm text-xs ${theme === "dark" ? "border-gray-500" : "border-gray-400"
+                                            } border-b`}
+                                    >
+                                        Updated on
+                                    </th>
+                                    <th
+                                        className={`text-center font-semibold px-5 py-3 md:text-sm text-xs ${theme === "dark" ? "border-gray-500" : "border-gray-400"
+                                            } border-b border-l`}
+                                    >
+                                        Comments
+                                    </th>
+                                    <th
+                                        className={`text-center font-semibold px-5 py-3 md:text-sm text-xs ${theme === "dark" ? "border-gray-500" : "border-gray-400"
+                                            } border-b border-l`}
+                                    >
+                                        No.of likes
+                                    </th>
+                                    <th
+                                        className={`text-center font-semibold px-5 py-3 md:text-sm text-xs ${theme === "dark" ? "border-gray-500" : "border-gray-400"
+                                            } border-b border-l`}
+                                    >
+                                        PostId
+                                    </th>
+                                    <th
+                                        className={`text-center font-semibold px-5 py-3 md:text-sm text-xs ${theme === "dark" ? "border-gray-500" : "border-gray-400"
+                                            } border-b border-l`}
+                                    >
+                                        UserId
+                                    </th>
+                                    <th
+                                        className={`text-center font-semibold px-5 py-3 md:text-sm text-xs ${theme === "dark" ? "border-gray-500" : "border-gray-400"
+                                            } border-b border-l`}
+                                    >
+                                        Delete
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody className="divide-y">
+                                {loader ? (
+                                    <tr>
+                                        <td colSpan="6" className="text-center py-10">
+                                            <Spinner />
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    getAllComments.map((comments, index) => (
+                                        <tr
+                                            key={index}
+                                            className={`text-xs md:text-sm transition-all ${theme === "dark"
+                                                ? "hover:bg-gray-800 bg-gray-800 border-gray-700"
+                                                : "hover:bg-gray-100"
+                                                }`}
+                                        >
+                                            {/* Updated Date */}
+                                            <td className={`text-center px-5 py-4 text-xs md:text-sm ${
+                                                theme === "dark" ? "border-gray-700" : "border-gray-300"
+                                            } border-b`}>
+                                                {new Date(comments.updatedAt).toLocaleDateString()}
+                                            </td>
 
-                            <Table.HeadCell
-                                className={` text-center font-semibold md:text-sm text-xs  ${theme === "dark" && "border-gray-500"
-                                    } `}
-                            >
-                                Comments
-                            </Table.HeadCell>
-
-                            <Table.HeadCell
-                                className={` text-center font-semibold md:text-sm text-xs  ${theme === "dark" && "border-gray-500"
-                                    } `}
-                            >
-                                No.of likes
-                            </Table.HeadCell>
-
-                            <Table.HeadCell
-                                className={`text-center font-semibold md:text-sm text-xs  ${theme === "dark" && "border-gray-500"
-                                    } `}
-                            >
-                                <span>PostId</span>
-                            </Table.HeadCell>
-
-                            <Table.HeadCell
-                                className={`pr-2  md:pr-0 text-center font-semibold md:text-sm text-xs ${theme === "dark" && "border-gray-500"
-                                    } `}
-                            >
-                                UserId
-                            </Table.HeadCell>
-
-                            <Table.HeadCell
-                                className={`pl-2 md:pl-0 font-semibold md:text-sm text-xs  ${theme === "dark" && "border-gray-500"
-                                    } `}
-                            >
-                                Delete
-                            </Table.HeadCell>
-                        </Table.Head>
-                        {loader ? (
-                            <Spinner />
-                        ) : (
-                            <>
-                                {getAllComments.map((comments, index) => {
-                                    return (
-                                        <Table.Body key={index} className="">
-                                            <Table.Row key={index}
-                                                className={` text-xs md:text-sm  transition-all rounded-md  ${theme === "dark"
-                                                    ? "hover:bg-gray-800"
-                                                    : "hover:bg-slate-100"
-                                                    }`}
-                                            >
-                                                <Table.Cell className="text-center px-2 md:px-0 text-xs md:text-sm">
-                                                    {new Date(comments.updatedAt).toLocaleDateString()}
-                                                </Table.Cell>
-
-                                                <Table.Cell className="flex px-2 w-52 md:px-0 justify-center">
-                                                    <NavLink className="" to={`/blog`}>
-                                                        <span className="">{comments.comment}</span>
+                                            {/* Comment Text */}
+                                            <td className={`px-5 py-4 max-w-xs ${
+                                                theme === "dark" ? "border-gray-700" : "border-gray-300"
+                                            } border-l border-b`}>
+                                                <div className="truncate">
+                                                    <NavLink to={`/blog`}>
+                                                        <span className="hover:text-blue-600 transition-colors">{comments.comment}</span>
                                                     </NavLink>
-                                                </Table.Cell>
+                                                </div>
+                                            </td>
 
-                                                <Table.Cell
-                                                    className={`px-3 md:px-0 border-l border-r text-center text-xs md:text-sm ${theme === "dark" && "text-gray-300 border-gray-700"
-                                                        }`}
+                                            {/* Likes Count */}
+                                            <td
+                                                className={`text-center px-5 py-4 text-xs md:text-sm ${
+                                                    theme === "dark" ? "text-gray-300 border-gray-700" : "border-gray-300"
+                                                } border-l border-b`}
+                                            >
+                                                <span className={`px-2 py-1 rounded-full text-xs ${
+                                                    theme === "dark" ? "bg-gray-700 text-gray-300" : "bg-gray-200 text-gray-700"
+                                                }`}>
+                                                    {comments.likes.length}
+                                                </span>
+                                            </td>
+
+                                            {/* Post ID */}
+                                            <td className={`text-center px-5 py-4 text-xs md:text-sm ${
+                                                theme === "dark" ? "border-gray-700" : "border-gray-300"
+                                            } border-l border-b`}>
+                                                <span className="font-mono text-xs break-all">{comments.blogId}</span>
+                                            </td>
+
+                                            {/* User ID */}
+                                            <td className={`text-center px-5 py-4 text-xs md:text-sm ${
+                                                theme === "dark" ? "border-gray-700" : "border-gray-300"
+                                            } border-l border-b`}>
+                                                <span className="font-mono text-xs break-all">{comments.userId}</span>
+                                            </td>
+
+                                            {/* Delete Button */}
+                                            <td className={`text-center px-5 py-4 ${
+                                                theme === "dark" ? "border-gray-700" : "border-gray-300"
+                                            } border-l border-b`}>
+                                                <button
+                                                    className="text-red-500 hover:text-red-700 hover:underline transition-colors"
+                                                    onClick={() => deleteUserHandle(comments._id)}
                                                 >
-                                                    <span>{comments.likes.length}</span>
-                                                </Table.Cell>
-
-                                                <Table.Cell className="text-center md:px-0 px-5">
-                                                    <span className="">{comments.blogId}</span>
-                                                </Table.Cell>
-
-                                                <Table.Cell className="text-xs px-5 md:px-0 md:text-sm text-center">
-                                                    <span>{comments.userId}</span>
-                                                </Table.Cell>
-
-                                                <Table.Cell>
-                                                    <button
-                                                        className="text-red-500 px-3 md:px-0 hover:underline"
-                                                        onClick={() => {
-                                                            deleteUserHandle(comments._id);
-                                                        }}
-                                                    >
-                                                        Delete
-                                                    </button>
-                                                </Table.Cell>
-                                            </Table.Row>
-                                        </Table.Body>
-                                    );
-                                })}
-                            </>
-                        )}
-                    </Table>
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 )}
 
                 {showMoreButton && (
