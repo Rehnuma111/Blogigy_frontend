@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { firebaseStorage } from "../firebase/firebaseConfig";
+// Cloudinary upload handled via axios below
 import {
   addBlogStart,
   addBlogFailure,
@@ -17,18 +16,21 @@ import { postBlogURL } from "../api/url";
 
 const CreateBlog = () => {
   const { user } = useSelector((state) => state.userSliceApp);
+  console.log(user);
+  
   const { theme } = useSelector((state) => state.themeSliceApp);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [blogImage, setBlogImage] = useState(null);
-  const [firebaseBlogImgUrl, setFirebaseBlogImgUrl] = useState(null);
+  const [cloudinaryBlogImgUrl, setCloudinaryBlogImgUrl] = useState(null);
 
   const [formData, setFormData] = useState({
     blogTitle: "",
     blogCategory: "",
     blogBody: "",
     blogImgFile: "",
+    userId: user?._id || "",
     // ...other fields
   });
 
@@ -39,37 +41,35 @@ const CreateBlog = () => {
     setBlogImage(file);
   };
 
-  // Firebase Blog image upload :
+  // Cloudinary Blog image upload :
+  useEffect(() => {}, [cloudinaryBlogImgUrl]);
 
-  useEffect(() => {}, [firebaseBlogImgUrl]);
-
-  const firebaseUploadImg = async () => {
+  const cloudinaryUploadImg = async () => {
     if (!blogImage) {
       toast.error("Select an image !");
       return false;
     }
-
-    const uniqueImageId = `image_ ${Date.now().toString()}`;
-
-    const imageRef = ref(firebaseStorage, `blogImages/${uniqueImageId}`);
-
+    const data = new FormData();
+    data.append("file", blogImage);
+    data.append("upload_preset", "upload_preset"); // <-- replace with your actual preset
+    data.append("cloud_name", "dgdxjjvfm"); // <-- replace with your actual cloud name
     try {
       setImageLoader(true);
-
-      const upload = await uploadBytes(imageRef, blogImage);
-
-      const blogImgUrl = await getDownloadURL(upload.ref);
-      setImageLoader(false);
-      toast.success("Image uploaded successfully");
-
-      setFirebaseBlogImgUrl(blogImgUrl);
+      const response = await axios.post(
+        "https://api.cloudinary.com/v1_1/dgdxjjvfm/image/upload",
+        data
+      );
+      const imageUrl = response.data.secure_url;
+      setCloudinaryBlogImgUrl(imageUrl);
       setFormData({
         ...formData,
-        blogImgFile: blogImgUrl,
+        blogImgFile: imageUrl,
       });
+      setImageLoader(false);
+      toast.success("Image uploaded successfully");
     } catch (error) {
       setImageLoader(false);
-      console.log("Could not upload image");
+      toast.error("Failed to upload image");
     }
   };
 
@@ -109,6 +109,11 @@ const CreateBlog = () => {
       toast.error("Post body can be less than 20 char!");
       return false;
     } else {
+      if (!user || !user.token) {
+        toast.error("You must be logged in to create a blog!");
+        return;
+      }
+      console.log('User object before blog post:', user);
       try {
         dispatch(addBlogStart());
         const addBlog = await axios.post(postBlogURL, formData, {
@@ -185,7 +190,7 @@ const CreateBlog = () => {
                 className={`text-xs py-2 bg-gray-700 border-violet-500 border-2 text-white rounded-md px-4 ${
                   imageLoader ? "cursor-not-allowed" : "cursor-pointer"
                 }`}
-                onClick={firebaseUploadImg}
+                onClick={cloudinaryUploadImg}
               >
                 Upload Image
               </button>
@@ -193,9 +198,9 @@ const CreateBlog = () => {
           </div>
 
           <div className="w-full flex justify-center">
-            {firebaseBlogImgUrl ? (
+            {cloudinaryBlogImgUrl ? (
               <img
-                src={firebaseBlogImgUrl && firebaseBlogImgUrl}
+                src={cloudinaryBlogImgUrl}
                 className=" rounded-md w-full bg-cover h-96 object-cover bg-center"
               />
             ) : (
