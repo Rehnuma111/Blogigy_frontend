@@ -1,6 +1,6 @@
 // Centralized API Endpoints for Blogigy
-// export const baseURL = 'https://blogify-backend-4e4o.onrender.com';
-export const baseURL = 'http://localhost:5000';
+export const baseURL = 'https://blogify-backend-4e4o.onrender.com';
+// export const baseURL = 'http://localhost:5000';
 
 // BLOG ENDPOINTS
 export const fetchAllBlogsURL = `${baseURL}/api/blog/get-all-blogs`;
