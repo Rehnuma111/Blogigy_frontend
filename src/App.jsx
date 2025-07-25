@@ -5,6 +5,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 
 import store from './app/store'; // Assuming you have a Redux store setup
+import Loader from './components/Loader';
+import BlogLoader from './assests/blogSpinner/BlogLoader';
 
 // Lazy-loaded components and pages
 const Header = lazy(() => import('./components/Header'));
@@ -26,7 +28,7 @@ const AdminPrivateRoute = lazy(() => import('./components/AdminPrivateRoute'));
 const ThemeProvider = lazy(() => import('./components/ThemeProvider'));
 
 // Optional: custom loading fallback
-const Loading = () => <div className="text-center p-4">Loading...</div>;
+const Loading = () => <div className="text-center p-4"><BlogLoader /></div>;
 
 const App = () => {
   return (

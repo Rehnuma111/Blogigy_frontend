@@ -6,6 +6,7 @@ import AllBlogs from "../components/AllBlogs";
 import AllUsers from "../components/AllUsers";
 import AllComments from "../components/AllComments";
 import DashBaordComp from "../components/DashBaordComp";
+import CreateBlog from "../pages/CreateBlog";
 
 const Dashboard = () => {
   const location = useLocation();
