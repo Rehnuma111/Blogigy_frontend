@@ -7,6 +7,8 @@ import { persistStore } from 'redux-persist';
 import store from './app/store'; // Assuming you have a Redux store setup
 import Loader from './components/Loader';
 import BlogLoader from './assests/blogSpinner/BlogLoader';
+import AllBlogs from './components/AllBlogs';
+import ViewAllBlog from './components/ViewAllBlog';
 
 // Lazy-loaded components and pages
 const Header = lazy(() => import('./components/Header'));
@@ -46,6 +48,8 @@ const App = () => {
                 <Route path='/register' element={<Register />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/blog/:blogSlug' element={<ShowBlog />} />
+                <Route path='/blog' element={<ViewAllBlog />} />
+
                 <Route path='/search' element={<Search />} />
                 <Route path='/forget-password' element={<ForgetPassword />} />
 

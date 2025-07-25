@@ -32,7 +32,7 @@ const Home = () => {
   return (
     <div className="pt-32 px-5 text-gray-800 dark:text-gray-200">
       {/* Hero Section */}
-      
+
       <div className="flex flex-col items-start gap-6 mb-20 max-w-3xl mx-auto text-center md:text-left">
         <motion.h1
           className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-yellow-300"
@@ -88,10 +88,22 @@ const Home = () => {
             <div
               key={index}
               className={`max-w-sm w-full border rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-transform hover:scale-[1.01] duration-300 
-                ${theme === "dark" ? "border-gray-700 bg-gray-800" : "border-gray-300 bg-white"}`}
+                ${
+                  theme === "dark"
+                    ? "border-gray-700 bg-gray-800"
+                    : "border-gray-300 bg-white"
+                }`}
             >
               <Link to={`/blog/${blog.slug}`}>
                 <div className="p-4 space-y-2">
+                  {blog.blogImgFile && (
+                    <img
+                      src={blog.blogImgFile}
+                      alt={blog.blogTitle}
+                      className="w-full h-40 object-cover rounded mb-3"
+                      loading="lazy"
+                    />
+                  )}
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                     {blog.blogTitle}
                   </h3>

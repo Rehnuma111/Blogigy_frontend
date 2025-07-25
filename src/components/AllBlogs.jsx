@@ -140,8 +140,11 @@ const AllBlogs = () => {
                                     </tr>
                                 ) : userBlogs.length === 0 ? (
                                     <tr>
-                                        <td colSpan="6" className="text-center">
-                                            No blogs found
+                                        <td colSpan="6" className="py-16">
+                                            <div className="flex flex-col items-center justify-center">
+                                                <PiSmileySad size={50} className="text-yellow-400 mb-4" />
+                                                <p className="text-xl font-semibold text-gray-500">No Blog list Found</p>
+                                            </div>
                                         </td>
                                     </tr>
                                 ) : (

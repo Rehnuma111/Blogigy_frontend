@@ -20,7 +20,7 @@ export const getUsersByPageURL = (page) => `${baseURL}/api/user/getusers?page=${
 export const getUsersByUserParamURL = (user) => `${baseURL}/api/user/getusers?user=${user}`;
 export const deleteUserURL = `${baseURL}/api/user/deleteuser`;
 export const deleteUserByIdURL = (id) => `${baseURL}/api/user/deleteuser/${id}`;
-export const updateUserURL = (userId) => `${baseURL}/api/user/update-user/${userId}`;
+export const updateUserURL = (userId) => `${baseURL}/api/user/updateuser/${userId}`;
 export const registerUserURL = `${baseURL}/api/user/register`;
 export const loginUserURL = `${baseURL}/api/user/login`;
 export const googleUserURL = `${baseURL}/api/user/googleuser`;
@@ -44,3 +44,4 @@ export const getUserCommentURL = (userId) => `${baseURL}/api/user/get-user-comme
 export const editCommentURL = (commentId) => `${baseURL}/api/comment/edit-comment/${commentId}`;
 export const likeTheCommentURL = (commentId) => `${baseURL}/api/comment/like-the-comment/${commentId}`;
 // Add additional endpoints as needed below (e.g., image upload, etc.)
+// export const fetchAllBlogsURL = `${baseURL}/api/blog/get-all-blogs`;

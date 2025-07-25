@@ -28,7 +28,7 @@ const DashBaordComp = () => {
       try {
         const fetchUserDetails = await axios.get(getUsersByUserParamURL(5), {
           headers: {
-            Authorization: `Bearer ${user.token}`,
+            Authorization: user.token,
           },
         });
 
@@ -64,7 +64,7 @@ const DashBaordComp = () => {
           getAllCommentsWithLimitURL(5),
           {
             headers: {
-              Authorization: `Bearer ${user.token}`,
+              Authorization: user.token,
             },
           }
         );

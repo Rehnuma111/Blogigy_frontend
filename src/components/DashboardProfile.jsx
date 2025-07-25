@@ -53,33 +53,7 @@ const DashboardProfile = () => {
     }
   }, [imageFile]);
 
-  //   const uploadImage = async () => {
-  //     const uniqueProfileImage = `image_${Date.now().toString()}`;
-
-  //     const imageRef = ref(
-  //       firebaseStorage,
-  //       `profilePictures/${uniqueProfileImage}`,
-  //       imageFile
-  //     );
-
-  //     try {
-  //       setImageLoader(true);
-
-  //       const upload = await uploadBytes(imageRef, imageFile);
-
-  //       const getFirebaseImgUrl = await getDownloadURL(upload.ref);
-  //       setImageLoader(false);
-
-  //       setFirebaseImgURL(getFirebaseImgUrl);
-  //       setFormData({ ...formData, profilePicture: getFirebaseImgUrl });
-
-  //       toast.success("Profile picture has been updated");
-  //     } catch (error) {
-  //       setImageLoader(false);
-  //       console.log(error);
-  //     }
-  //   };
-
+  
   const uploadImage = async () => {
     const data = new FormData();
     data.append("file", imageFile);

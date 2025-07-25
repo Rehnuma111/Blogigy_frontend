@@ -86,7 +86,7 @@ const AllComments = () => {
 
   const yesToDeleteComment = async () => {
     try {
-      const deleteCommentInfo = await axios.delete(
+      const response = await axios.delete(
         deleteCommentByIdURL(commentIdToDelete),
         {
           data: {
@@ -98,7 +98,6 @@ const AllComments = () => {
         }
       );
       if (response.status === 200) {
-        console.log(response.data);
         setAllComments(
           getAllComments.filter(
             (commentValue) => commentValue._id !== commentIdToDelete
@@ -120,7 +119,12 @@ const AllComments = () => {
           theme === "dark" ? "border-zinc-700" : "border-gray-200"
         } mx-2 md:mx-0`}
       >
-        {getAllComments.length > 0 && (
+        {getAllComments.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-16">
+            <ImWarning size={50} className="text-yellow-400 mb-4" />
+            <p className="text-xl font-semibold text-gray-500">No Comment list Found</p>
+          </div>
+        ) : (
           <div className="my-5">
             <table className="w-full text-sm text-left">
               <thead
