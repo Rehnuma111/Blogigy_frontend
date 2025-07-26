@@ -88,25 +88,25 @@ const DashBaordComp = () => {
 
   return (
     <div className="p-8">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">📊 Admin Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-6 text-blue-400">📊 Admin Dashboard</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white rounded-xl shadow-md p-6 border-t-4 border-blue-500">
-          <h2 className="text-lg font-semibold text-gray-600">Total Users</h2>
+        <div className="bg-blue-50 rounded-xl shadow-md p-6 border-t-4 border-blue-500">
+          <h2 className="text-lg font-semibold text-blue-400">Total Users</h2>
           <p className="text-3xl font-bold text-blue-600">{totalUsers}</p>
-          <p className="text-sm text-gray-500">+{lastMonthUsers} new last month</p>
+          <p className="text-sm text-blue-400">+{lastMonthUsers} new last month</p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-md p-6 border-t-4 border-green-500">
-          <h2 className="text-lg font-semibold text-gray-600">Total Blogs</h2>
-          <p className="text-3xl font-bold text-green-600">{totalBlogPosts}</p>
-          <p className="text-sm text-gray-500">+{lastMonthPosts} added last month</p>
+        <div className="bg-blue-50 rounded-xl shadow-md p-6 border-t-4 border-blue-400">
+          <h2 className="text-lg font-semibold text-blue-400">Total Blogs</h2>
+          <p className="text-3xl font-bold text-blue-500">{totalBlogPosts}</p>
+          <p className="text-sm text-blue-400">+{lastMonthPosts} added last month</p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-md p-6 border-t-4 border-purple-500">
-          <h2 className="text-lg font-semibold text-gray-600">Total Comments</h2>
-          <p className="text-3xl font-bold text-purple-600">{totalComments}</p>
-          <p className="text-sm text-gray-500">+{lastMonthComments} last month</p>
+        <div className="bg-blue-50 rounded-xl shadow-md p-6 border-t-4 border-blue-400">
+          <h2 className="text-lg font-semibold text-blue-400">Total Comments</h2>
+          <p className="text-3xl font-bold text-blue-500">{totalComments}</p>
+          <p className="text-sm text-blue-400">+{lastMonthComments} last month</p>
         </div>
       </div>
 
@@ -115,9 +115,9 @@ const DashBaordComp = () => {
         <h2 className="text-2xl font-semibold mb-4">📍 Recent Users</h2>
         <ul className="space-y-2">
           {userData.map((user) => (
-            <li key={user._id} className="p-4 bg-gray-100 rounded shadow-sm">
+            <li key={user._id} className="p-4 bg-blue-50 rounded shadow-sm">
               <p className="font-medium">{user.username}</p>
-              <p className="text-sm text-gray-600">{user.email}</p>
+              <p className="text-sm text-blue-400">{user.email}</p>
             </li>
           ))}
         </ul>

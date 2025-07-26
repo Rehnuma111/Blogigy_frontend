@@ -47,7 +47,7 @@ const Header = () => {
   const submitHandle = (e) => {
     e.preventDefault();
     const getURL = new URLSearchParams(location.search);
-    getURL.set("searchBlog", searchBlog);
+    getURL.set("searchblog", searchBlog);
     navigate(`/search?${getURL.toString()}`);
   };
 
@@ -99,41 +99,59 @@ const Header = () => {
         </button>
 
         {user ? (
-          <div className="relative">
-            <img
-              src={user.profilePicture}
-              className="w-11 h-11 rounded-full cursor-pointer"
-              onClick={() => setDropDown(!dropDown)}
-            />
+          <>
+            {/* Conditional Nav Links for Desktop */}
+            {user.isAdmin ? (
+              <NavLink
+                to="/dashboard?tab=createblog"
+                className="bg-violet-600 text-white px-3 py-2 rounded-md font-semibold hover:bg-violet-700 transition-all mr-2"
+              >
+                CreateBlog
+              </NavLink>
+            ) : (
+              <NavLink
+                to="/blog"
+                className="bg-blue-600 text-white px-3 py-2 rounded-md font-semibold hover:bg-blue-700 transition-all mr-2"
+              >
+                ViewAllBlog
+              </NavLink>
+            )}
+            <div className="relative">
+              <img
+                src={user.profilePicture}
+                className="w-11 h-11 rounded-full cursor-pointer"
+                onClick={() => setDropDown(!dropDown)}
+              />
 
-            <AnimatePresence>
-              {dropDown && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className={`absolute right-0 mt-2 w-40 rounded-md shadow-md p-3 z-20 ${
-                    theme === "dark"
-                      ? "bg-zinc-700 text-white"
-                      : "bg-white text-black"
-                  }`}
-                >
-                  <NavLink
-                    to="/dashboard?tab=profile"
-                    className="flex items-center gap-2 py-2 hover:underline"
+              <AnimatePresence>
+                {dropDown && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className={`absolute right-0 mt-2 w-40 rounded-md shadow-md p-3 z-20 ${
+                      theme === "dark"
+                        ? "bg-zinc-700 text-white"
+                        : "bg-white text-black"
+                    }`}
                   >
-                    <CgProfile size={20} /> Profile
-                  </NavLink>
-                  <button
-                    onClick={signOutHandle}
-                    className="flex items-center gap-2 py-2 hover:underline"
-                  >
-                    <PiSignOutDuotone size={20} /> Sign Out
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+                    <NavLink
+                      to="/dashboard?tab=profile"
+                      className="flex items-center gap-2 py-2 hover:underline"
+                    >
+                      <CgProfile size={20} /> Profile
+                    </NavLink>
+                    <button
+                      onClick={signOutHandle}
+                      className="flex items-center gap-2 py-2 hover:underline"
+                    >
+                      <PiSignOutDuotone size={20} /> Sign Out
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </>
         ) : (
           location.pathname !== "/login" &&
           location.pathname !== "/register" && (
@@ -167,41 +185,59 @@ const Header = () => {
           </button>
 
           {user && (
-            <div className="relative">
-              <img
-                src={user?.profilePicture}
-                alt="User Image"
-                className="w-9 h-9 rounded-full cursor-pointer"
-                onClick={() => setDropDown(!dropDown)}
-              />
-              <AnimatePresence>
-                {dropDown && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className={`absolute right-0 top-12 w-36 rounded-md shadow-md p-3 z-20 ${
-                      theme === "dark"
-                        ? "bg-zinc-700 text-white"
-                        : "bg-white text-black"
-                    }`}
-                  >
-                    <NavLink
-                      to="/dashboard?tab=profile"
-                      className="flex items-center gap-2 py-2 hover:underline"
+            <>
+              {/* Conditional Nav Links for Mobile */}
+              {user.isAdmin ? (
+                <NavLink
+                  to="/dashboard?tab=createblog"
+                  className="bg-violet-600 text-white px-3 py-2 rounded-md font-semibold hover:bg-violet-700 transition-all"
+                >
+                  CreateBlog
+                </NavLink>
+              ) : (
+                <NavLink
+                  to="/dashboard?tab=blogs"
+                  className="bg-blue-600 text-white px-3 py-2 rounded-md font-semibold hover:bg-blue-700 transition-all"
+                >
+                  ViewAllBlog
+                </NavLink>
+              )}
+              <div className="relative">
+                <img
+                  src={user?.profilePicture}
+                  alt="User Image"
+                  className="w-9 h-9 rounded-full cursor-pointer"
+                  onClick={() => setDropDown(!dropDown)}
+                />
+                <AnimatePresence>
+                  {dropDown && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className={`absolute right-0 top-12 w-36 rounded-md shadow-md p-3 z-20 ${
+                        theme === "dark"
+                          ? "bg-zinc-700 text-white"
+                          : "bg-white text-black"
+                      }`}
                     >
-                      <CgProfile size={20} /> Profile
-                    </NavLink>
-                    <button
-                      onClick={signOutHandle}
-                      className="flex items-center gap-2 py-2 hover:underline"
-                    >
-                      <PiSignOutDuotone size={20} /> Sign Out
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+                      <NavLink
+                        to="/dashboard?tab=profile"
+                        className="flex items-center gap-2 py-2 hover:underline"
+                      >
+                        <CgProfile size={20} /> Profile
+                      </NavLink>
+                      <button
+                        onClick={signOutHandle}
+                        className="flex items-center gap-2 py-2 hover:underline"
+                      >
+                        <PiSignOutDuotone size={20} /> Sign Out
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </>
           )}
 
           <button onClick={() => setToggleNavBtn(!toggleNavBtn)}>

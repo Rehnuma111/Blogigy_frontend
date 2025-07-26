@@ -6,7 +6,9 @@ export const baseURL = 'https://blogify-backend-4e4o.onrender.com';
 export const fetchAllBlogsURL = `${baseURL}/api/blog/get-all-blogs`;
 export const fetchBlogByIdURL = (blogId) => `${baseURL}/api/blog/get-all-blogs?blogId=${blogId}`;
 export const fetchBlogBySlugURL = (slug) => `${baseURL}/api/blog/get-all-blogs?slug=${slug}`;
-export const fetchAllBlogsByUserURL = (userId) => `${baseURL}/api/blog/get-all-blogs?userId=${userId}`;
+// export const fetchAllBlogsByUserURL = (userId) => `${baseURL}/api/blog/get-all-blogs?userId=${userId}`;
+export const fetchAllBlogsByUserURL = (userId) => `${baseURL}/api/blog/get-all-blogs`;
+
 export const fetchAllBlogsByPageURL = (userId, page) => `${baseURL}/api/blog/get-all-blogs?userId=${userId}&page=${page}`;
 export const fetchAllBlogsWithLimitURL = (limit) => `${baseURL}/api/blog/get-all-blogs?limit=${limit}`;
 export const postBlogURL = `${baseURL}/api/blog/post-blog`;

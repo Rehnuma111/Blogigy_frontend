@@ -1,5 +1,5 @@
-import registerImg from "../assests/registerImg.png";
-import { TiUserAdd } from "react-icons/ti";
+import registerImg from "../assests/loginImg.png";
+import { FaUserCog } from "react-icons/fa";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
@@ -96,13 +96,13 @@ const Register = () => {
           onSubmit={submitHandle}
         >
           <div className="flex items-center justify-center gap-3">
-            <span className="border-2 rounded-full py-2 px-2 border-orange-400">
-              <TiUserAdd className="text-orange-400" size={30} />
-            </span>
-            <h1 className="text-center text-2xl text-orange-400 font-semibold">
-              User Signup{" "}
-            </h1>
-          </div>
+  <span className="border-2 border-blue-400 rounded-full py-2 px-2">
+    <FaUserCog className="text-blue-400" size={25} />
+  </span>
+  <h1 className="text-center md:text-4xl text-2xl text-blue-400 font-semibold">
+    Sign up
+  </h1>
+</div>
 
           <div className="flex flex-col gap-1">
             <label className="flex ">
@@ -116,10 +116,10 @@ const Register = () => {
               value={formData.username}
               onChange={onInputChange}
               autoComplete="off"
-              className={`transition-all py-2 px-2 outline-none  rounded-md border border-orange-400 ${
+              className={`transition-all py-2 px-2 outline-none  rounded-md border border-blue-400 ${
                 theme === "dark"
                   ? "bg-gray-700 focus:bg-gray-800"
-                  : "bg-orange-50"
+                  : "bg-blue-50"
               } `}
             />
           </div>
@@ -133,10 +133,10 @@ const Register = () => {
               type="email"
               name="email"
               placeholder="youremail@gmail.com"
-              className={`transition-all py-2 px-2 outline-none  rounded-md border border-orange-400 ${
+              className={`transition-all py-2 px-2 outline-none  rounded-md border border-blue-400 ${
                 theme === "dark"
                   ? "bg-gray-700 focus:bg-gray-800"
-                  : "bg-orange-50"
+                  : "bg-blue-50"
               } `}
               value={formData.email}
               onChange={onInputChange}
@@ -153,10 +153,10 @@ const Register = () => {
               type="password"
               name="password"
               placeholder="Password"
-              className={`transition-all py-2 px-2 outline-none  rounded-md border border-orange-400 ${
+              className={`transition-all py-2 px-2 outline-none  rounded-md border border-blue-400 ${
                 theme === "dark"
                   ? "bg-gray-700 focus:bg-gray-800"
-                  : "bg-orange-50"
+                  : "bg-blue-50"
               } `}
               value={formData.password}
               onChange={onInputChange}
@@ -168,7 +168,7 @@ const Register = () => {
             <button
               disabled={loading}
               type="submit"
-              className="bg-orange-500 text-white font-semibold rounded-md w-full py-2 my-3 active:bg-orange-600 transition-all"
+              className="bg-blue-500 text-white font-semibold rounded-md w-full py-2 my-3 active:bg-blue-600 transition-all"
             >
               {loading ? (
                 <div className="flex  justify-center items-center">
