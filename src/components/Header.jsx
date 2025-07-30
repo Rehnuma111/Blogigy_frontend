@@ -73,7 +73,7 @@ const Header = () => {
           to="/"
           className="text-xl font-bold text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 px-3 py-1 rounded-md"
         >
-          Blogify
+          Blogigy
         </NavLink>
 
         <form onSubmit={submitHandle} className="relative">
@@ -171,7 +171,7 @@ const Header = () => {
           to="/"
           className="text-lg font-bold text-white bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 px-2 py-1 rounded-md"
         >
-          Blogify
+          Blogigy
         </NavLink>
 
         <div className="flex items-center gap-4">

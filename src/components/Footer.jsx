@@ -12,8 +12,8 @@ const Footer = () => {
     >
       <p className="text-center">
         Crafted with passion by the{' '}
-        <span className="text-orange-500 font-semibold">Blogify Team</span>{' '}
-        &copy; 2024 Blogify. All rights reserved.
+        <span className="text-orange-500 font-semibold">Blogigy Team</span>{' '}
+        &copy; 2024 Blogigy. All rights reserved.
       </p>
     </footer>
   );
